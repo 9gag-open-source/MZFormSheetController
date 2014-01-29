@@ -34,7 +34,7 @@ CGFloat const MZFormSheetControllerDefaultBackgroundBlurSaturation = 1.0;
 UIWindowLevel const MZFormSheetBackgroundWindowLevelAboveStatusBar = 1002;
 UIWindowLevel const MZFormSheetBackgroundWindowLevelBelowStatusBar = 2;
 
-extern CGFloat MZFormSheetControllerWindowTag;
+//extern CGFloat MZFormSheetControllerWindowTag;
 
 static CGFloat const UIInterfaceOrientationAngleOfOrientation(UIInterfaceOrientation orientation) {
     switch (orientation)
@@ -65,7 +65,7 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
 + (void)initialize
 {
     if (self == [MZFormSheetBackgroundWindow class]) {
-        [[self appearance] setBackgroundColor:[UIColor colorWithWhite:0 alpha:MZFormSheetControllerDefaultBackgroundOpacity]];
+//        [[self appearance] setBackgroundColor:[UIColor colorWithWhite:0 alpha:MZFormSheetControllerDefaultBackgroundOpacity]];
         [[self appearance] setBlurRadius:MZFormSheetControllerDefaultBackgroundBlurRadius];
         [[self appearance] setBlurSaturation:MZFormSheetControllerDefaultBackgroundBlurSaturation];
         [[self appearance] setWindowLevel:MZFormSheetBackgroundWindowLevelBelowStatusBar];
