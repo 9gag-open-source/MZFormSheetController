@@ -333,14 +333,14 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 - (void)setPortraitTopInset:(CGFloat)portraitTopInset
 {
     if (_portraitTopInset != portraitTopInset) {
-        _portraitTopInset = portraitTopInset + self.top;
+        _portraitTopInset = portraitTopInset;
     }
 }
 
 - (void)setLandscapeTopInset:(CGFloat)landscapeTopInset
 {
     if (_landscapeTopInset != landscapeTopInset) {
-        _landscapeTopInset = landscapeTopInset + self.top;
+        _landscapeTopInset = landscapeTopInset;
     }
 }
 
@@ -385,7 +385,7 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 #pragma mark - Getters
 
 - (CGFloat)top {
-  if (MZSystemVersionGreaterThanOrEqualTo_iOS7()) {
+  if (MZSystemVersionGreaterThanOrEqualTo_iOS7() && ![UIApplication sharedApplication].statusBarHidden) {
     return [MZFormSheetController statusBarHeight];
   } else {
     return 0;
@@ -639,7 +639,7 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
               formSheetRect.origin.y = self.top;
               break;
             case MZFormSheetWhenKeyboardAppearsMoveToTopInset:
-              formSheetRect.origin.y = self.topInset;
+              formSheetRect.origin.y = self.topInset + self.top;
               break;
             default:
               break;
@@ -653,7 +653,7 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
         self.presentedFSViewController.view.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
     } else {
         CGRect frame = self.presentedFSViewController.view.frame;
-        frame.origin.y = self.topInset;
+        frame.origin.y = self.topInset + self.top;
         self.presentedFSViewController.view.frame = frame;
     }
 }
