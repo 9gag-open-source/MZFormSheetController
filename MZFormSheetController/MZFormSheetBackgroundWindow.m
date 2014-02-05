@@ -354,6 +354,7 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
 }
 
 - (void)updateBlur {
+    if(!_backgroundBlurEffect) return;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         UIImage *snapshot = [self rotateImageToStatusBarOrientation:[MZFormSheetBackgroundWindow screenshotUsingContext:YES]];
         self.updatingBlur = YES;
