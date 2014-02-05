@@ -97,6 +97,9 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
     {
         if ((![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen]) && window.tag != MZFormSheetControllerWindowTag && ![window isKindOfClass:[MZFormSheetBackgroundWindow class]])
         {
+            CATransform3D transform = window.layer.transform;
+            window.layer.transform = CATransform3DIdentity;
+            
             // -renderInContext: renders in the coordinate space of the layer,
             // so we must first apply the layer's geometry to the graphics context
             CGContextSaveGState(context);
@@ -123,6 +126,8 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
 
             // Restore the context
             CGContextRestoreGState(context);
+            
+            window.layer.transform = transform;
         }
     }
 
@@ -346,6 +351,17 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
             });
         });
     }
+}
+
+- (void)updateBlur {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        UIImage *snapshot = [self rotateImageToStatusBarOrientation:[MZFormSheetBackgroundWindow screenshotUsingContext:YES]];
+        self.updatingBlur = YES;
+        UIImage *blurredImage = [snapshot blurredImageWithRadius:self.blurRadius tintColor:self.blurTintColor saturationDeltaFactor:self.blurSaturation maskImage:self.blurMaskImage];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.backgroundImageView.image = blurredImage;
+        });
+    });
 }
 
 #pragma mark - Window rotations

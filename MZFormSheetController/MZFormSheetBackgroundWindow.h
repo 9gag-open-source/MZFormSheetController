@@ -148,4 +148,9 @@ extern UIWindowLevel const MZFormSheetBackgroundWindowLevelBelowStatusBar;
  By default, this is UIInterfaceOrientationMaskAll
  */
 @property (nonatomic, assign) UIInterfaceOrientationMask supportedInterfaceOrientations MZ_APPEARANCE_SELECTOR;
+
+
+
+- (void)updateBlur;
+
 @end
