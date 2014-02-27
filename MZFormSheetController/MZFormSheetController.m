@@ -954,4 +954,8 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
     [self mz_dismissFormSheetControllerAnimated:animated completionHandler:completionHandler];
 }
 
+- (NSUInteger)supportedInterfaceOrientations{
+    return [MZFormSheetController sharedBackgroundWindow].supportedInterfaceOrientations;
+}
+
 @end
