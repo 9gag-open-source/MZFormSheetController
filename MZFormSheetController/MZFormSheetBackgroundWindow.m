@@ -26,6 +26,7 @@
 #import "MZFormSheetBackgroundWindow.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Additional.h"
+#import "MZFormSheetController.h"
 
 CGFloat const MZFormSheetControllerDefaultBackgroundOpacity = 0.5;
 CGFloat const MZFormSheetControllerDefaultBackgroundBlurRadius = 2.0;
