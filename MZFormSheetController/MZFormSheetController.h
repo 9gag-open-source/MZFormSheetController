@@ -156,6 +156,12 @@ typedef void(^MZFormSheetTransitionCompletionHandler)();
 @property (nonatomic, copy) MZFormSheetBackgroundViewTapCompletionHandler didTapOnBackgroundViewCompletionHandler;
 
 /**
+ Distance that the presented form sheet view top offset from screen
+ By default, this is 0 in iOS 6 and 20 (status bar height) in iOS 7
+ */
+@property (nonatomic, assign) CGFloat top MZ_APPEARANCE_SELECTOR;
+
+/**
  Distance that the presented form sheet view is inset from the status bar in landscape orientation.
  By default, this is 6.0
  */

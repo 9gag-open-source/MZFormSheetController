@@ -227,7 +227,6 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 @property (nonatomic, weak) UIWindow *applicationKeyWindow;
 @property (nonatomic, strong) MZFormSheetWindow *formSheetWindow;
 
-@property (nonatomic, readonly) CGFloat top;
 @property (nonatomic, readonly) CGFloat topInset;
 @property (nonatomic, assign, getter = isPresented) BOOL presented;
 @property (nonatomic, assign, getter = isKeyboardVisible) BOOL keyboardVisible;
@@ -400,14 +399,6 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 
 #pragma mark - Getters
 
-- (CGFloat)top {
-  if (MZSystemVersionGreaterThanOrEqualTo_iOS7()) {
-    return [MZFormSheetController statusBarHeight];
-  } else {
-    return 0;
-  }
-}
-
 - (CGFloat)topInset
 {
   if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
@@ -447,6 +438,12 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 - (instancetype)initWithViewController:(UIViewController *)presentedFormSheetViewController
 {
     if (self = [super init]) {
+        
+        if (MZSystemVersionGreaterThanOrEqualTo_iOS7()) {
+            self.top = [MZFormSheetController statusBarHeight];
+        } else {
+            self.top = 0;
+        }
 
         [self addKeyboardNotifications];
         
@@ -466,6 +463,11 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 - (instancetype)initWithSize:(CGSize)formSheetSize viewController:(UIViewController *)presentedFormSheetViewController
 {
     if (self = [self initWithViewController:presentedFormSheetViewController]) {
+        if (MZSystemVersionGreaterThanOrEqualTo_iOS7()) {
+            self.top = [MZFormSheetController statusBarHeight];
+        } else {
+            self.top = 0;
+        }        
         if (!CGSizeEqualToSize(formSheetSize, CGSizeZero)) {
             _presentedFormSheetSize = formSheetSize;
             [self setupFormSheetViewController];
